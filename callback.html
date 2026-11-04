@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Conectando · TechFlow AI</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header>
+    <img src="logo.png" alt="">
+    <a class="brand" href="./">TechFlow AI</a>
+  </header>
+
+  <h1>Conectando ao TechFlow no seu computador...</h1>
+  <p class="meta" lang="en">Connecting to TechFlow on your computer...</p>
+  <p>Se nada acontecer em alguns segundos, <a id="manual" href="http://127.0.0.1:8000/api/v1/tiktok/callback">clique aqui para continuar</a>. O TechFlow precisa estar rodando neste computador.</p>
+  <p lang="en">If nothing happens in a few seconds, <a id="manual-en" href="http://127.0.0.1:8000/api/v1/tiktok/callback">click here to continue</a>. TechFlow must be running on this computer.</p>
+</main>
+<script>
+  // Repassa a resposta do login do TikTok para o servidor local, sem guardar nada aqui.
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var forward = new URLSearchParams();
+    ["code", "state", "error", "error_description", "scopes"].forEach(function (key) {
+      if (params.has(key)) forward.set(key, params.get(key));
+    });
+    var target = "http://127.0.0.1:8000/api/v1/tiktok/callback" + (forward.toString() ? "?" + forward.toString() : "");
+    document.getElementById("manual").href = target;
+    document.getElementById("manual-en").href = target;
+    window.location.replace(target);
+  })();
+</script>
+</body>
+</html>
